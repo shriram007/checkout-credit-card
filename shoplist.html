@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping List </title>
+  <meta name="viewport" content="width=device-width, user-scalable=no"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" href="shoplist.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html ng-app="root">
+<form action="cre.php" method="post">
+<div class="container" ng-controller="index">
+
+		  <div class="box margin-right" id="shopping-list">
+		    <h1>My Shopping List</h1>
+		    
+		    <div id="errorMessage"><i class="icon-cross"></i>Please enter all inputs!</div>
+		    
+		    <div id="successMessage"><i class="icon-checkmark"></i>Item added to shopping list!</div>
+		    
+		    <div class="half margin-right">
+		     <input type='text' name="itemn"  class="searchButton" placeholder='Item Name' ng-model="itemName" autofocus required>
+		    </div><div class="half"><input type='text' name="shopn"  class="searchButton" placeholder='Shop Name' ng-model="itemShop" required></div>
+		     <div class="half margin-right">
+		     	<input type='number' name="quantityn" class="searchButton margin-right" placeholder='Quantity' ng-model="itemQuantity" required>
+		    </div><div class="dollar half"> 
+		      <span>₹</span>
+		      <input type='number' name="pricet" class="searchButton" placeholder='Price (each)' ng-model="itemPrice" required>
+		    </div>
+		    
+		    <button id="addItem" ng-click="addItem()">Add Item</button>
+		
+		    <div class="list">
+		      <table border="0" cellspacing="0">
+		        <tr class="table-header">
+		          <td></td>
+		          <td class="left">Item Name</td>
+		          <td class="left">Shop</td>
+		          <td>Quantity</td>
+		          <td class="center">Price in ₹</td>
+		          <td class="center">Remove</td>
+		        </tr>
+		        <tr ng-repeat="item in list | orderBy: '-checked':true">
+		          <td><input name="pricet" ng-show="!item.checked" ng-checked="item.checked" ng-click="add(item, list)" type='checkbox' checklist-value="item.checked"></td>
+		          <td  ng-class="{selected: item.checked==true}">{{item.name}}</td>
+		          <td ng-class="{selected: item.checked==true}" class="left">{{item.shop}}</td>
+		          <td ng-class="{selected: item.checked==true}" class="center">{{item.quantity}}</td>
+		          <td ng-class="{selected: item.checked==true}">{{item.price}}</td>
+		          <td><i class="icon-cross delete" ng-click="remove(item)"></i></td>
+		        </tr>
+		      </table>
+		      <div ng-hide="list.length" class="center">Your shopping list is empty.</div>
+		      <div class="cost cf">
+		        <span class="left ">Total Cost:</span>
+		        <span class="right" ng-class="{total: length!==0}">{{getTotal()}}</span>
+		      </div>
+		      <button type="submit" class="checkout"  onclick="document.location='cre.html' ">checkout</button>
+		    </div>
+		  </div>
+		  
+		  
+</div>
+</form>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js'></script><script  src="shoplist.js"></script>
+
+</body>
+</html>
